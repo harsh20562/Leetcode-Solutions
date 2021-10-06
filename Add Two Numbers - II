@@ -1,0 +1,75 @@
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        Stack<Integer> s1 = new Stack<Integer>();
+        Stack<Integer> s2 = new Stack<Integer>();
+        Stack<Integer> ans = new Stack<Integer>();
+        int cnt1 = 0, cnt2 = 0;
+        ListNode e1 = l1;
+        ListNode e2 = l2;
+        while(e1!=null)
+        {
+            ++cnt1;
+            e1 = e1.next;
+        }
+        while(e2!=null)
+        {
+            ++cnt2;
+            e2 = e2.next;
+        }
+        if(cnt1>cnt2)
+        {
+            for(int i=1; i<=cnt1-cnt2; ++i)
+            {
+                s2.push(0);
+            }
+        }
+        else
+        {
+            for(int i=1; i<=cnt2-cnt1; ++i)
+            {
+                s1.push(0);
+            }
+        }
+        while(l1!=null)
+        {
+            s1.push(l1.val);
+            l1 = l1.next;
+        }
+        while(l2!=null)
+        {
+            s2.push(l2.val);
+            l2 = l2.next;
+        }
+        int c = 0;
+        while(s1.empty()!=true)
+        {
+            int v1 = s1.pop();
+            int v2 = s2.pop();
+            if(v1+v2+c>=10)
+            {
+                ans.push(v1+v2-10+c);
+                c = 1;
+            }
+            else
+            {
+                ans.push(v1+v2+c);
+                c = 0;
+            }
+        }
+        if(c==1)
+        {
+            ans.push(1);
+        }
+        ListNode h1 = new ListNode();
+        h1.val = ans.pop();
+        ListNode head = h1;
+        while(ans.empty()!=true)
+        {
+            ListNode h2 = new ListNode();
+            h2.val = ans.pop();
+            h1.next = h2;
+            h1 = h1.next;
+        }
+        return head;
+    }
+}

@@ -1,0 +1,50 @@
+class Solution {
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        if(source==destination)
+        {
+            return true;
+        }
+        ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+        for(int i=0; i<n; ++i)
+        {
+            list.add(new ArrayList<Integer>());
+        }
+        for(int i=0; i<edges.length; ++i)
+        {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            list.get(u).add(v);
+            list.get(v).add(u);
+        }
+        int[] visited = new int[n];
+        int ans = check(list,source,destination,visited);
+        if(ans==1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public int check(ArrayList<ArrayList<Integer>> edges, int s, int d, int[] visited)
+    {
+        if(s==d)
+        {
+            return 1;
+        }
+        for(int i=0; i<edges.get(s).size(); ++i)
+        {
+            if(visited[edges.get(s).get(i)]==0)
+            {
+                visited[edges.get(s).get(i)] = 1;
+                int t = check(edges,edges.get(s).get(i),d,visited);
+                if(t==1)
+                {
+                    return 1;
+                }
+            }
+        }
+        return 0;
+    }
+}

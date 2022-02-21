@@ -1,0 +1,11 @@
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        n = len(nums)
+        sets = set(nums)
+        sets = list(sets)
+        ans = -1
+        for i in range(len(sets)):
+            if nums.count(sets[i])>n//2:
+                ans = sets[i]
+                break
+        return ans

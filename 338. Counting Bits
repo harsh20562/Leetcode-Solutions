@@ -1,0 +1,36 @@
+class Solution {
+    public int[] countBits(int n) {
+        int[] a = new int[n+1];
+        int temp = 0;
+        for(int i=0; i<=n; ++i)
+        {
+            if(i==0 || i==1)
+            {
+                a[i] = i;
+            }
+            else
+            {
+                a[i] = solve(i);
+            }
+        }
+        return a;
+    }
+    public int solve(int n)
+    {
+        if(n==0 || n==1)
+        {
+            return n;
+        }
+        else
+        {
+            if(n%2==0)
+            {
+                return solve(n/2);
+            }
+            else
+            {
+                return 1 + solve(n/2);
+            }
+        }
+    }
+}

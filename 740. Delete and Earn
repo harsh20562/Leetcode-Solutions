@@ -1,0 +1,34 @@
+class Solution {
+    public int deleteAndEarn(int[] nums) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        int[] dp = new int[n];
+        int ans = check(nums,n,0,dp);
+        return ans;
+    }
+    public int check(int[] nums,int n,int idx, int[] dp)
+    {
+        if(idx==n)
+        {
+            return 0;
+        }
+        if(dp[idx]!=0)
+        {
+            return dp[idx];
+        }
+        int sum=0;
+        int temp = nums[idx];
+        int newidx = idx;
+        while(newidx<n && nums[newidx]==temp)
+        {
+            sum = sum + temp;
+            ++newidx;
+        }
+        while(newidx<n && nums[newidx]==temp+1)
+        {
+            ++newidx;
+        }
+        dp[idx] = Math.max(sum+check(nums,n,newidx,dp),check(nums,n,idx+1,dp));
+        return dp[idx];
+    }
+}

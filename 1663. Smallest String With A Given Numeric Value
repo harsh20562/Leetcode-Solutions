@@ -1,0 +1,20 @@
+class Solution:
+    def getSmallestString(self, n: int, k: int) -> str:
+        dic = {}
+        for i in range(26,0,-1):
+            dic[i] = chr(i+96)
+        ans = ''
+        while k!=0:
+            if k==n:
+                ans = 'a'*k + ans
+                k = 0
+            else:
+                if k>=26 and k-26>=n-1:
+                    ans = 'z' + ans
+                    k = k - 26
+                    n = n - 1
+                else:
+                    ans = dic[min(k-n+1,26)] + ans
+                    k = k - min(k-n+1,26)
+                    n = n-1
+        return ans

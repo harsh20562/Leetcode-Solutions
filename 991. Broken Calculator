@@ -1,0 +1,19 @@
+class Solution {
+    public int brokenCalc(int startvalue, int target) {
+        if(startvalue>=target)
+        {
+            return startvalue-target;
+        }
+        else
+        {
+            if(target%2==0)
+            {
+                return 1+brokenCalc(startvalue , target/2);
+            }
+            else
+            {
+                return 1+brokenCalc(startvalue , target+1);
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+class Solution {
+    public int numRescueBoats(int[] people, int limit) {
+        int count = 0;
+        Arrays.sort(people);
+        int n = people.length;
+        int ptr1 = 0;
+        int ptr2 = n-1;
+        int[] visited = new int[n];
+        while(ptr1<ptr2)
+        {
+            if(people[ptr1] + people[ptr2]<=limit)
+            {
+                ++count;
+                visited[ptr1] = 1;
+                visited[ptr2] = 1;
+                ++ptr1;
+                --ptr2;
+            }
+            else
+            {
+                ++count;
+                visited[ptr2] = 1;
+                --ptr2;
+            }
+        }
+        if(ptr1==ptr2 && visited[ptr1]==0)
+        {
+            ++count;
+        }
+        return count;
+    }
+}

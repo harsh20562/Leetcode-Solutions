@@ -1,0 +1,14 @@
+class Solution:
+    def twoCitySchedCost(self, costs: List[List[int]]) -> int:
+        costs.sort()
+        n = len(costs)//2
+        ans = 0
+        for i in range(2*n):
+            ans = ans + costs[i][0]
+        refund = []
+        for i in range(2*n):
+            refund.append(costs[i][1] - costs[i][0])
+        refund.sort()
+        for i in range(0,n):
+            ans = ans + refund[i]
+        return ans

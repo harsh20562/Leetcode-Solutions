@@ -1,0 +1,77 @@
+class Solution {
+    public boolean search(int[] nums, int target) {
+        int n = nums.length;
+        if(n==1)
+        {
+            if(nums[0]==target)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        int idx = -1;
+        for(int i=1; i<n; ++i)
+        {
+            if(nums[i]>=nums[i-1])
+            {
+                continue;
+            }
+            else
+            {
+                idx = i;
+                break;
+            }
+        }
+        if(idx!=-1)
+        {
+            if(nums[idx]==target)
+            {
+                return true;
+            }
+            else
+            {
+                int l1 = 0;
+                int r1 = idx;
+                int l2 = idx;
+                int r2 = n-1;
+                int idx1 = binarySearch(nums , l1 , r1 , target);
+                int idx2 = binarySearch(nums , l2 , r2 , target);
+                if(idx1!=-1 || idx2!=-1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            int temp = binarySearch(nums , 0 , n-1 , target);
+            if(temp!=-1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    int binarySearch(int arr[], int l, int r, int x)
+    {
+        if (r >= l) {
+            int mid = l + (r - l) / 2;
+            if (arr[mid] == x)
+                return mid;
+            if (arr[mid] > x)
+                return binarySearch(arr, l, mid - 1, x);
+            return binarySearch(arr, mid + 1, r, x);
+        }
+        return -1;
+    }
+}

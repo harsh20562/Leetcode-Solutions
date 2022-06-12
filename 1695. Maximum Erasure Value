@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int maximumUniqueSubarray(vector<int>& a) {
+        int n = a.size();
+        int sum = 0;
+        int ans = 0;
+        int m = 0;
+        int last[10001];
+        memset(last,-1,sizeof(last));
+        for(int i=0; i<n; ++i)
+        {
+            if(last[a[i]]==-1)
+            {
+                sum = sum + a[i];
+                last[a[i]] = i;
+            }
+            else
+            {
+                int temp = std::max(last[a[i]],m);
+                if(temp==last[a[i]])
+                {
+                    while(m<=last[a[i]])
+                    {
+                        sum = sum - a[m];
+                        ++m;
+                    }
+                }
+                sum = sum + a[i];
+                last[a[i]] = i;
+            }
+            // cout<<sum<<" ";
+            ans = max(ans,sum);
+        }
+        return ans;
+    }
+};

@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
+        if(boxTypes.size()==1)
+        {
+            return std::min(truckSize, boxTypes[0][0])*boxTypes[0][1];
+        }
+        else
+        {
+            vector<pair<int,int>> v;
+            for(int i=0; i<boxTypes.size(); ++i)
+            {
+                v.push_back({boxTypes[i][1], boxTypes[i][0]});
+            }
+            sort(v.begin(), v.end());
+            int ans = 0;
+            for(int i=v.size()-1; i>=0; --i)
+            {
+                if(v[i].second <= truckSize)
+                {
+                    ans = ans + ((v[i].second)*(v[i].first));
+                    truckSize = truckSize - v[i].second;
+                }
+                else
+                {
+                    ans = ans + (truckSize)*(v[i].first);
+                    truckSize = 0;
+                    break;
+                }
+            }
+            return ans;
+        }
+    }
+};

@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maxArea(int h, int w, vector<int>& horizontalCuts, vector<int>& verticalCuts) {
+        sort(horizontalCuts.begin(), horizontalCuts.end());
+        sort(verticalCuts.begin(), verticalCuts.end());
+        int hans = horizontalCuts[0];
+        int vans = verticalCuts[0];
+        int s1 = horizontalCuts.size();
+        int s2 = verticalCuts.size();
+        for(int i = 1; i < s1; ++i)
+        {
+            hans = max(hans, horizontalCuts[i] - horizontalCuts[i-1]);
+        }
+        for(int i = 1; i < s2; ++i)
+        {
+            vans = max(vans, verticalCuts[i] - verticalCuts[i-1]);
+        }
+        hans = max(hans, h - horizontalCuts[s1-1]);
+        vans = max(vans, w - verticalCuts[s2-1]);
+        return (int)((long)hans*vans%1000000007);
+    }
+};

@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int maxScoreSightseeingPair(vector<int>& values) {
+        vector<int> plus;
+        vector<int> minus;
+        int n = values.size();
+        for(int i = 0; i < n; ++i)
+        {
+            plus.push_back(values[i] + i);
+        }
+        for(int i = 0; i < n; ++i)
+        {
+            minus.push_back(values[i] - i);
+        }
+        vector<int> max1;
+        vector<int> max2(n);
+        max1.push_back(plus[0]);
+        int last = plus[0];
+        for(int i = 1; i < n; ++i)
+        {
+            last = max(last, plus[i]);
+            max1.push_back(last);
+        }
+        max2[n-1] = minus[n-1];
+        last = minus[n-1];
+        for(int i = n-2; i >= 0; --i)
+        {
+            last = max(last, minus[i]);
+            max2[i] = last;
+        }
+        
+        int ans = -1;
+        for(int i = 0; i < n-1; ++i)
+        {
+            ans = max(ans, max1[i] + max2[i+1]);
+        }
+        return ans;
+    }
+};

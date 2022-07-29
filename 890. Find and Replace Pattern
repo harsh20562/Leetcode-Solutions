@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<string> findAndReplacePattern(vector<string>& a, string pattern) {
+        int n = a.size();
+        int req = pattern.size();
+        vector<string> ans;
+        for(int i = 0; i < n; ++i)
+        {
+            vector<int> last1(26,-1);
+            vector<int> last2(26,-1);
+            int f = 1;
+            for(int j = 0; j < req; ++j)
+            {
+                int ascii1 = a[i][j];
+                ascii1 = ascii1 - 97;
+                int ascii2 = pattern[j];
+                ascii2 = ascii2 - 97;
+                if(last1[ascii1]==-1 && last2[ascii2]==-1)
+                {
+                    last1[ascii1] = j;
+                    last2[ascii2] = j;
+                }
+                else
+                {
+                    if(last1[ascii1]!=last2[ascii2])
+                    {
+                        f = 0;
+                        break;
+                    }
+                    else
+                    {
+                        last1[ascii1] = j;
+                        last2[ascii2] = j;
+                    }
+                }
+            }
+            if(f==1)
+            {
+                ans.push_back(a[i]);
+            }
+        }
+        return ans;
+    }
+};

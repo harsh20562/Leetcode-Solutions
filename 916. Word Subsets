@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<string> wordSubsets(vector<string>& words1, vector<string>& words2) {
+        int cnt[26];
+        for(int i = 0; i < 26; ++i)
+        {
+            cnt[i] = 0;
+        }
+        for(int i = 0; i < words2.size(); ++i)
+        {
+            int temp[26];
+            for(int j = 0; j < 26; ++j)
+            {
+                temp[j] = 0;
+            }
+            for(int j = 0; j < words2[i].length(); ++j)
+            {
+                int ascii = words2[i][j];
+                ascii = ascii - 97;
+                temp[ascii]++;
+                cnt[ascii] = max(cnt[ascii], temp[ascii]);
+            }
+        }
+        
+        vector<string> ans;
+        
+        for(int i = 0; i < words1.size(); ++i)
+        {
+            int flag = 1;
+            int t[26];
+            for(int j = 0; j < 26; ++j)
+            {
+                t[j] = 0;
+            }
+            for(int j = 0; j < words1[i].length(); ++j)
+            {
+                int ascii = words1[i][j];
+                ascii = ascii - 97;
+                t[ascii]++;
+            }
+            for(int j = 0; j < 26; ++j)
+            {
+                if(t[j] < cnt[j])
+                {
+                    flag = 0;
+                    break;
+                }
+            }
+            if(flag==1)
+            {
+                ans.push_back(words1[i]);
+            }
+        }
+        return ans;
+    }
+};

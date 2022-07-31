@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        set<long long int> s;
+        s.insert(1);
+        set<long long int>::iterator itr;
+        itr = s.begin();
+        while(s.size() <= 2*n)
+        {
+            s.insert(2*(*itr));
+            s.insert(3*(*itr));
+            s.insert(5*(*itr));
+            ++itr;
+        }
+        itr = s.begin();
+        for(int i = 1; i <= n-1; ++i)
+        {
+            ++itr;
+        }
+        // for(auto& it: s)
+        // {
+        //     cout<<it<<" ";
+        // }
+        return *itr;
+    }
+};

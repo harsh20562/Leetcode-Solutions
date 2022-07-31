@@ -1,0 +1,48 @@
+class Solution {
+public:
+    int maximumGroups(vector<int>& grades) {
+        int n = grades.size();
+        sort(grades.begin(), grades.end());
+        int last = grades[0];
+        int cnt = 1;
+        int ans = 1;
+        int i = 1;
+        while(i < n)
+        {
+            int sum = 0;
+            int cn = 0;
+            while(i < n && cn <= cnt)
+            {
+                sum = sum + grades[i];
+                ++i;
+                ++cn;
+            }
+            if(sum > last && cn > cnt)
+            {
+                ++ans;
+                last = sum;
+                cnt = cn;
+            }
+            else
+            {
+                while(i < n && sum <= last)
+                {
+                    sum = sum + grades[i];
+                    ++i;
+                    ++cn;
+                }
+                if(sum > last && cn > cnt)
+                {
+                    ++ans;
+                    last = sum;
+                    cnt = cn;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+};
